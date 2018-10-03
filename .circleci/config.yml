@@ -9,7 +9,7 @@ jobs:
           name: Greeting
           command: echo Hello, world.
       - run:
-          name: Print the Current Time
+          name: Print CIRCLE CI Env
           command: printenv | grep CIRCLE
   step2:
     docker:
@@ -20,8 +20,8 @@ jobs:
           name: Greeting
           command: echo Hello, world.
       - run:
-          name: Print the Current Time
-          command: date
+          name: Print CIRCLE CI Env
+          command: printenv | grep CIRCLE
 workflows:
   version: 2
   step1-step2:
