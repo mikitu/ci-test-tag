@@ -31,6 +31,13 @@ workflows:
           type: approval
           requires:
             - step1
+          filters:
+            # ignore any commit on any branch by default
+            branches:
+              ignore: /.*/
+              # only act on version tags
+            tags:
+              only: /^[0-9]+(\.[0-9]+)*$/  
       - step2:
           requires:
             - approve
