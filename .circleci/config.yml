@@ -12,10 +12,10 @@ jobs:
           name: Print CIRCLE CI Env
           command: printenv | grep CIRCLE
       - run:
-        name: Check for existing git tags
-        command: |
-          echo "CIRCLE_TAG: $CIRCLE_TAG"
-          echo "CIRCLE_TAG-x: ${CIRCLE_TAG-x}"
+          name: Check for existing git tags
+          command: |
+            echo "CIRCLE_TAG: $CIRCLE_TAG"
+            echo "CIRCLE_TAG-x: ${CIRCLE_TAG-x}"
   step2:
     docker:
       - image: debian:stretch
@@ -28,10 +28,10 @@ jobs:
           name: Print CIRCLE CI Env
           command: printenv | grep CIRCLE
       - run:
-        name: Check for existing git tags
-        command: |
-          echo "CIRCLE_TAG: $CIRCLE_TAG"
-          echo "CIRCLE_TAG-x: ${CIRCLE_TAG-x}"
+          name: Check for existing git tags
+          command: |
+            echo "CIRCLE_TAG: $CIRCLE_TAG"
+            echo "CIRCLE_TAG-x: ${CIRCLE_TAG-x}"
 workflows:
   version: 2
   tagged-build:
