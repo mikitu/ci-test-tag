@@ -10,7 +10,7 @@ jobs:
           command: echo Hello, world.
       - run:
           name: Print the Current Time
-          command: date
+          command: printenv | grep CIRCLE
   step2:
     docker:
       - image: debian:stretch
@@ -27,13 +27,16 @@ workflows:
   step1-step2:
     jobs:
       - step1
-      - approve:
-          type: approval
+      # - approve:
+      #     type: approval
+      #     requires:
+      #       - step1
+      #     filters:
+      #       tags:
+      #         only: /^[0-9]+(\.[0-9]+)*$/
+      - step2:
           requires:
             - step1
           filters:
             tags:
               only: /^[0-9]+(\.[0-9]+)*$/
-      - step2:
-          requires:
-            - approve
