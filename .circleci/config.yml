@@ -27,7 +27,6 @@ workflows:
   step1-step2:
     jobs:
       - step1
-      - step2
+      - step2:
           requires:
-            - test
-            
+            - step1
