@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  step1:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo Hello, world.
+      - run:
+          name: Print the Current Time
+          command: date
+  step2:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo Hello, world.
+      - run:
+          name: Print the Current Time
+          command: date
+workflows:
+  version: 2
+  step1-step2:
+    jobs:
+      - step1
+      - step2
+          requires:
+            - test
+            
