@@ -24,9 +24,6 @@ jobs:
           command: printenv | grep CIRCLE
 workflows:
   version: 2
-  untagged-build:
-    jobs:
-      - step1
   tagged-build:
     jobs:
       - step1
@@ -35,4 +32,4 @@ workflows:
             - step1
           filters:
             tags:
-              only: /^v.*/
+              only: /^v[0-9]+(\.[0-9]+)+$/
