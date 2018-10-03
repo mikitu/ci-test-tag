@@ -66,14 +66,12 @@ jobs:
             echo "CIRCLE_TAG-x: ${CIRCLE_TAG-x}"
 workflows:
   version: 2
-  build:
+  build-and-deploy:
     jobs:
       - step1
       - step2:
           requires:
             - step1
-  deploy:
-    jobs:
       - approve:
           type: approval
           filters:
