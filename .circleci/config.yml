@@ -11,6 +11,10 @@ jobs:
       - run:
           name: Print CIRCLE CI Env
           command: printenv | grep CIRCLE
+      - run:
+        name: Check for existing git tags
+        command: |
+        [[  $CIRCLE_TAG && ${CIRCLE_TAG-x} ]] && echo "Tag Found: $CIRCLE_TAG" || echo "No tag was found - no deployment will happen"
   step2:
     docker:
       - image: debian:stretch
@@ -22,6 +26,10 @@ jobs:
       - run:
           name: Print CIRCLE CI Env
           command: printenv | grep CIRCLE
+      - run:
+        name: Check for existing git tags
+        command: |
+        [[  $CIRCLE_TAG && ${CIRCLE_TAG-x} ]] && echo "Tag Found: $CIRCLE_TAG" || echo "No tag was found - no deployment will happen"
 workflows:
   version: 2
   tagged-build:
