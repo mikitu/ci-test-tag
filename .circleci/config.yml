@@ -27,6 +27,10 @@ workflows:
   step1-step2:
     jobs:
       - step1
-      - step2:
+      - approve:
+          type: approval
           requires:
             - step1
+      - step2:
+          requires:
+            - approve
