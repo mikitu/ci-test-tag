@@ -68,12 +68,20 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - step1
+      - step1:
+          filters:
+            tags:
+              only: /.*/
       - step2:
           requires:
             - step1
+          filters:
+            tags:
+              only: /.*/
       - approve:
           type: approval
+          requires:
+            - step2
           filters:
             tags:
               only: /^v[0-9]+(\.[0-9]+)+$/
