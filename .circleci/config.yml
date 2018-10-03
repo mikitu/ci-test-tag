@@ -44,8 +44,8 @@ workflows:
           requires:
             - step1
           filters:
-            ignore:
-              only: /^v[0-9]+(\.[0-9]+)+$/
+            tags:
+              ignore: /^v[0-9]+(\.[0-9]+)+$/
   tagged-build:
     jobs:
       - step1:
