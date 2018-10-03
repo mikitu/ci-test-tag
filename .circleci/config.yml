@@ -32,29 +32,62 @@ jobs:
           command: |
             echo "CIRCLE_TAG: $CIRCLE_TAG"
             echo "CIRCLE_TAG-x: ${CIRCLE_TAG-x}"
+  step3:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo Hello, world.
+      - run:
+          name: Print CIRCLE CI Env
+          command: printenv | grep CIRCLE
+      - run:
+          name: Check for existing git tags
+          command: |
+            echo "CIRCLE_TAG: $CIRCLE_TAG"
+            echo "CIRCLE_TAG-x: ${CIRCLE_TAG-x}"
+  step4:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo Hello, world.
+      - run:
+          name: Print CIRCLE CI Env
+          command: printenv | grep CIRCLE
+      - run:
+          name: Check for existing git tags
+          command: |
+            echo "CIRCLE_TAG: $CIRCLE_TAG"
+            echo "CIRCLE_TAG-x: ${CIRCLE_TAG-x}"
 workflows:
   version: 2
-  untagged-build:
+  build:
     jobs:
-      - step1:
-          filters:
-            tags:
-              ignore: /^v[0-9]+(\.[0-9]+)+$/
+      - step1
       - step2:
           requires:
             - step1
-          filters:
-            tags:
-              ignore: /^v[0-9]+(\.[0-9]+)+$/
-  tagged-build:
+  deploy:
     jobs:
-      - step1:
+      - approve:
+          type: approval
           filters:
             tags:
               only: /^v[0-9]+(\.[0-9]+)+$/
-      - step2:
+      - step3:
           requires:
-            - step1
+            - approve
+          filters:
+            tags:
+              only: /^v[0-9]+(\.[0-9]+)+$/
+      - step4:
+          requires:
+            - step3
           filters:
             tags:
               only: /^v[0-9]+(\.[0-9]+)+$/
